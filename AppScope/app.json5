@@ -1,0 +1,15 @@
+{
+  "app": {
+    // The only debug signing profile on this machine that is not already spoken for by ArkUIApp
+    // is bound to this bundle name, and a HarmonyOS profile cannot be re-pointed at another one.
+    // Distinct from com.example.arkuiapp, so both ports install side by side — which is what the
+    // memory comparison needs. Regenerate signing in DevEco to rename it.
+    "bundleName": "com.example.myapplication",
+    "vendor": "example",
+    "versionCode": 1000000,
+    "versionName": "1.0.0",
+    "buildVersion": "1",
+    "icon": "$media:layered_image",
+    "label": "$string:app_name"
+  }
+}

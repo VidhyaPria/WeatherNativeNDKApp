@@ -1,0 +1,61 @@
+{
+  "app": {
+    // The installed toolchain is Hvigor 6.1.1 / SDK 6.1.1(24); the template this project was
+    // scaffolded from targets 26.0.0, which that Hvigor refuses to load. Pinned to the versions
+    // ArkUIApp already builds against, so one toolchain compiles both ports and the memory
+    // comparison is not measuring a compiler difference. "nativeCompiler": "BiSheng" went with
+    // it — that is a 26.0.0 option.
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "C:\\Users\\huawei\\.ohos\\config\\default_NativeApp_UySAQBU-gEmDdut_KK4GLGMBDt4d8UmXwdzamiyeIuo=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001AD0ABEC71E708EE367DA1CF1477148C8AAFAAF7048DD0B492D015DE9AC5C5E96860FC28529170",
+          "profile": "C:\\Users\\huawei\\.ohos\\config\\default_NativeApp_UySAQBU-gEmDdut_KK4GLGMBDt4d8UmXwdzamiyeIuo=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:\\Users\\huawei\\.ohos\\config\\default_NativeApp_UySAQBU-gEmDdut_KK4GLGMBDt4d8UmXwdzamiyeIuo=.p12",
+          "storePassword": "0000001A3045D7379B07CFDBC136DF200DF18C05EB12CC73AE8C231ABF01722F06826C4628EBB26AEFAA"
+        }
+      }
+    ],
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "targetSdkVersion": "6.1.1(24)",
+        "compatibleSdkVersion": "6.1.1(24)",
+        "runtimeOS": "HarmonyOS",
+        "buildOption": {
+          "strictMode": {
+            "caseSensitiveCheck": true,
+            "useNormalizedOHMUrl": true
+          }
+        }
+      }
+    ],
+    "buildModeSet": [
+      {
+        "name": "debug",
+      },
+      {
+        "name": "release"
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    }
+  ]
+}

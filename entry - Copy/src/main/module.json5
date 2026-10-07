@@ -1,0 +1,99 @@
+{
+  "module": {
+    "name": "entry",
+    "type": "entry",
+    "description": "$string:module_desc",
+    "mainElement": "EntryAbility",
+    "deviceTypes": [
+      "phone"
+    ],
+    "deliveryWithInstall": true,
+    "installationFree": false,
+    "pages": "$profile:main_pages",
+    // Needed for the Open-Meteo requests (@ohos.net.http). Normal permission, granted at
+    // install time — no runtime prompt.
+    "requestPermissions": [
+      {
+        "name": "ohos.permission.INTERNET"
+      },
+      {
+        // ACCESS_COARSE_LOCATION (RefreshHelper.kt:133), for the my-location FAB. Coarse is enough
+        // — a forecast grid cell is kilometres wide — and it is the one HarmonyOS requires before
+        // any finer grant.
+        "name": "ohos.permission.APPROXIMATELY_LOCATION",
+        "reason": "$string:location_permission_reason",
+        "usedScene": {
+          "abilities": [
+            "EntryAbility"
+          ],
+          "when": "inuse"
+        }
+      },
+      {
+        // ACCESS_FINE_LOCATION (AndroidManifest.xml:11), which screen 3e's "Precise location" row
+        // asks for. Nothing in this port needs the finer fix, but the row must be able to grant it
+        // — an undeclared permission fails the request silently.
+        "name": "ohos.permission.LOCATION",
+        "reason": "$string:location_permission_reason",
+        "usedScene": {
+          "abilities": [
+            "EntryAbility"
+          ],
+          "when": "inuse"
+        }
+      },
+      {
+        // TYPE_GRAVITY for the weather background's parallax (MaterialPainterView.kt:190).
+        // Normal permission, granted at install time — no runtime prompt.
+        "name": "ohos.permission.ACCELEROMETER"
+      }
+    ],
+    "abilities": [
+      {
+        "name": "EntryAbility",
+        "srcEntry": "./ets/entryability/EntryAbility.ets",
+        /*
+         * The ability has to ASK to follow the sensor; the default does not.
+         *
+         * MainActivity declares no `android:screenOrientation`, and Android's default for that is
+         * `unspecified` — sensor-following, subject to the user's rotation lock. HarmonyOS's default
+         * is not, so both ports stayed portrait through a real rotation and the two-pane layout
+         * (res/layout-w640dp) could never be reached on device. `auto_rotation_restricted` is the
+         * value that means the same thing as Android's default: rotate with the sensor, but honour
+         * the rotation-lock switch.
+         */
+        "orientation": "auto_rotation_restricted",
+        "description": "$string:EntryAbility_desc",
+        "icon": "$media:layered_image",
+        "label": "$string:EntryAbility_label",
+        "startWindowIcon": "$media:startIcon",
+        "startWindowBackground": "$color:start_window_background",
+        "exported": true,
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "ohos.want.action.home"
+            ]
+          }
+        ]
+      }
+    ],
+    "extensionAbilities": [
+      {
+        "name": "EntryBackupAbility",
+        "srcEntry": "./ets/entrybackupability/EntryBackupAbility.ets",
+        "type": "backup",
+        "exported": false,
+        "metadata": [
+          {
+            "name": "ohos.extension.backup",
+            "resource": "$profile:backup_config"
+          }
+        ],
+      }
+    ]
+  }
+}
